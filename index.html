@@ -1,19 +1,82 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
-  <script type="text/javascript" src="script.js"></script>
-</head>
+    <title>検索ページ</title>
 
-<body>
-  <h1>プログラミング基礎 eラーニング提出ページ</h1>
-  <h2>h2タグ1</h2>
-  <h2>h2タグ2</h2>
-  <img src="https://cdn.dribbble.com/users/1281272/screenshots/4515441/unicorn.gif">
-  <h3>このページに課題を提出する</h3>
-</body>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
+      h1 {
+        font-size: 48px;
+        color: #4285f4;
+        margin-bottom: 30px;
+      }
+
+      input[type="text"] {
+        width: 500px;
+        padding: 12px 20px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 24px;
+        outline: none;
+      }
+
+      .buttons {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tech Search</h1>
+
+    <input type="text" id="searchInput" placeholder="検索キーワードを入力" />  
+    <div class="buttons">
+      <button onclick="search('zenn')">Zennで検索</button>
+      <button onclick="search('qiita')">Qiitaで検索</button>
+    </div>
+
+    <script>
+      function search(site) {
+        const query = document.getElementById("searchInput").value.trim();
+        if (!query) return alert("検索キーワードを入力してください");
+
+        let url = "";
+        switch (site) {
+          case "zenn":
+            url = `https://zenn.dev/search?q=${encodeURIComponent(query)}`;
+            break;
+          case "qiita":
+            url = `https://qiita.com/search?q=${encodeURIComponent(query)}`;
+            break;
+        }
+        window.open(url, "_blank");
+      }
+    </script>
+  </body>
 </html>
