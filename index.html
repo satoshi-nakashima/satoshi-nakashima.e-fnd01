@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <title>検索ページ</title>
+    <title>eラーニング基礎最終報告</title>
 
     <style>
       body {
@@ -50,16 +50,76 @@
       button:hover {
         background-color: #e0e0e0;
       }
+
+      .profile-dropdown {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: right;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .profile-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        color: #333;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        margin-top: 5px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-width: 120px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f0f0f0;
+      }
     </style>
   </head>
   <body>
     <h1>Tech Search</h1>
 
     <input type="text" id="searchInput" placeholder="🔍検索キーワードを入力" />
-     
+
     <div class="buttons">
       <button onclick="search('zenn')">Zennで検索</button>
       <button onclick="search('qiita')">Qiitaで検索</button>
+    </div>
+
+    <div class="profile-dropdown">
+      <div class="profile" onclick="toggleDropdown()">
+        <img src="profile.jpg" alt="プロフィール画像" class="profile-img" />
+        <span class="profile-name">中島 哲史</span>
+      </div>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">プロフィール</a>
+        <a href="#">設定</a>
+        <a href="#">ログアウト</a>
+      </div>
     </div>
 
     <script>
@@ -78,6 +138,18 @@
         }
         window.open(url, "_blank");
       }
+
+      function toggleDropdown() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      window.addEventListener("click", function (e) {
+        const menu = document.getElementById("dropdownMenu");
+        if (!e.target.closest(".profile-dropdown")) {
+          menu.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>
