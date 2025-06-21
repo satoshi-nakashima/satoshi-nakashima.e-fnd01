@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>ログイン | Tech Search</title>
-    <style>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- <style>
       body {
         font-family: Arial, sans-serif;
         background: #f5f5f5;
@@ -60,7 +61,7 @@
         font-size: 12px;
         color: #888;
       }
-    </style>
+    </style> -->
   </head>
   <body>
     <h1>Tech Search ログイン</h1>
@@ -70,8 +71,9 @@
       <button onclick="login()">ログイン</button>
     </div>
     <div class="footer">※デモ用ログインです。任意の値でログイン可能</div>
+    <script src="scripts.js"></script>
 
-    <script>
+    <!-- <script>
       function login() {
         const user = document.getElementById("username").value.trim();
         const pass = document.getElementById("password").value.trim();
@@ -86,6 +88,6 @@
         localStorage.setItem("username", user); // ユーザー名を保存（tech-search.htmlで表示可能）
         window.location.href = "tech-search.html";
       }
-    </script>
+    </script> -->
   </body>
 </html>
