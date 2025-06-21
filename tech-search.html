@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>eラーニング基礎最終報告</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-size: 48px;
+        color: #4285f4;
+        margin-bottom: 30px;
+      }
+
+      input[type="text"] {
+        width: 500px;
+        padding: 12px 20px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 24px;
+        outline: none;
+      }
+
+      .buttons {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e0e0e0;
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: right;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .profile-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .profile-name {
+        font-size: 14px;
+        color: #333;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        margin-top: 5px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-width: 120px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tech Search</h1>
+
+    <input type="text" id="searchInput" placeholder="🔍検索キーワードを入力" />
+
+    <div class="buttons">
+      <button onclick="search('zenn')">Zennで検索</button>
+      <button onclick="search('qiita')">Qiitaで検索</button>
+    </div>
+
+    <div class="profile-dropdown">
+      <div class="profile" onclick="toggleDropdown()">
+        <img src="profile.jpg" alt="プロフィール画像" class="profile-img" />
+        <span class="profile-name">中島 哲史</span>
+      </div>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">プロフィール</a>
+        <a href="#">設定</a>
+        <a href="#">ログアウト</a>
+      </div>
+    </div>
+
+    <script>
+      function search(site) {
+        const query = document.getElementById("searchInput").value.trim();
+        if (!query) return alert("検索キーワードを入力してください");
+
+        let url = "";
+        switch (site) {
+          case "zenn":
+            url = `https://zenn.dev/search?q=${encodeURIComponent(query)}`;
+            break;
+          case "qiita":
+            url = `https://qiita.com/search?q=${encodeURIComponent(query)}`;
+            break;
+        }
+        window.open(url, "_blank");
+      }
+
+      function toggleDropdown() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      window.addEventListener("click", function (e) {
+        const menu = document.getElementById("dropdownMenu");
+        if (!e.target.closest(".profile-dropdown")) {
+          menu.style.display = "none";
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const username = localStorage.getItem("username");
+
+        if (isLoggedIn !== "true") {
+          alert("ログインしてください");
+          window.location.href = "index.html";
+        } // ユーザー名を表示（任意）
+
+        const nameSpan = document.querySelector(".profile-name");
+        if (nameSpan && username) {
+          nameSpan.textContent = username;
+        }
+      });
+    </script>
+  </body>
+</html>
