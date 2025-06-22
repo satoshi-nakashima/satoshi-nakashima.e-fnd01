@@ -53,11 +53,19 @@ window.addEventListener("DOMContentLoaded", () => {
   // ダークモードの状態を反映
   const isDarkMode = localStorage.getItem("darkMode") === "true";
   document.body.classList.toggle("dark-mode", isDarkMode);
+
+  const switchInput = document.getElementById("darkModeSwitch");
+  if (switchInput) {
+    switchInput.checked = isDarkMode;
+  }
 });
 
 function toggleDarkMode() {
   const body = document.body;
-  const isDarkMode = body.classList.toggle("dark-mode");
+  const switchInput = document.getElementById("darkModeSwitch");
+  const isDarkMode = switchInput.checked;
+
+  body.classList.toggle("dark-mode", isDarkMode);
   localStorage.setItem("darkMode", isDarkMode);
   body.style.backgroundColor = isDarkMode ? "#121212" : "#f2f2f2";
 }

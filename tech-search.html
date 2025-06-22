@@ -23,7 +23,15 @@
       <div class="dropdown-menu" id="dropdownMenu">
         <a href="#">プロフィール</a>
         <a href="#">設定</a>
-        <a href="#" onclick="toggleDarkMode(); return false;">ダークモード</a>
+        <!-- <a href="#" onclick="toggleDarkMode(); return false;">ダークモード</a> -->
+        <label class="dark-mode-toggle">
+          <input
+            type="checkbox"
+            id="darkModeSwitch"
+            onchange="toggleDarkMode()"
+          />
+          <span class="slider"></span>ダークモード
+        </label>
         <a href="#">ログアウト</a>
       </div>
     </div>
