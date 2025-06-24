@@ -32,22 +32,27 @@ function renderSearchHistory() {
   if (!historyListElement) return;
 
   historyListElement.innerHTML = history
-    .map((keyword) => `<div>${keyword}</div>`)
+    .map(
+      (keyword) =>
+        `<div onclick="document.getElementById('searchInput').value='${keyword}'">${keyword}</div>`
+    )
     .join("");
 }
 
 function toggleDropdown() {
   const menu = document.getElementById("dropdownMenu");
+  const overlay = document.getElementById("overlay");
   const body = document.body;
   const isOpen = menu.style.display === "block";
   const isDarkMode = body.classList.contains("dark-mode");
 
   menu.style.display = isOpen ? "none" : "block"; // ダークモードかどうかで背景色を分岐
+  overlay.style.display = isOpen ? "none" : "block";
 
   if (isDarkMode) {
     body.style.backgroundColor = "#121212"; // ダークモードの背景色を維持
   } else {
-    body.style.backgroundColor = isOpen ? "#f2f2f2" : "#e0e0e0"; // ライトモード時のみ変更
+    body.style.backgroundColor = isOpen ? "#121212" : "#f2f2f2"; // ライトモード時のみ変更
   }
 }
 
@@ -83,6 +88,15 @@ window.addEventListener("DOMContentLoaded", () => {
   const switchInput = document.getElementById("darkModeSwitch");
   if (switchInput) {
     switchInput.checked = isDarkMode;
+  }
+
+  // オーバーレイクリックでメニューを閉じる
+  const overlay = document.getElementById("overlay");
+  if (overlay) {
+    overlay.addEventListener("click", () => {
+      document.getElementById("dropdownMenu").style.display = "none";
+      overlay.style.display = "none";
+    });
   }
 
   // 検索履歴
