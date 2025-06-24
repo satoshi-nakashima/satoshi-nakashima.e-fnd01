@@ -15,6 +15,12 @@
       <button onclick="search('qiita')">Qiitaで検索</button>
     </div>
 
+    <div id="searchHistory" class="search-history">
+      <h3>検索履歴</h3>
+      <button onclick="clearSearchHistory()">履歴を削除</button>  
+      <div id="historyItems"></div>
+    </div>
+
     <div class="profile-dropdown">
       <div class="profile" onclick="toggleDropdown()">
         <img src="profile.jpg" alt="プロフィール画像" class="profile-img" />
@@ -32,7 +38,7 @@
           />
           <span class="slider"></span>ダークモード
         </label>
-        <a href="#">ログアウト</a>
+        <a href="index.html">ログアウト</a>
       </div>
     </div>
 

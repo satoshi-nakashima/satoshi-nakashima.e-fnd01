@@ -2,6 +2,8 @@ function search(site) {
   const query = document.getElementById("searchInput").value.trim();
   if (!query) return alert("検索キーワードを入力してください");
 
+  saveSearchHistory(query); // 履歴保存
+
   let url = "";
   switch (site) {
     case "zenn":
@@ -14,15 +16,39 @@ function search(site) {
   window.open(url, "_blank");
 }
 
+function saveSearchHistory(query) {
+  let history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
+  history = history.filter((item) => item !== query); // 重複削除
+  history.unshift(query); // 先頭に追加
+  history = history.slice(0, 5); // 最大5件まで
+  localStorage.setItem("searchHistory", JSON.stringify(history));
+  renderSearchHistory();
+}
+
+function renderSearchHistory() {
+  const history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
+  const historyListElement = document.getElementById("historyItems");
+
+  if (!historyListElement) return;
+
+  historyListElement.innerHTML = history
+    .map((keyword) => `<div>${keyword}</div>`)
+    .join("");
+}
+
 function toggleDropdown() {
   const menu = document.getElementById("dropdownMenu");
   const body = document.body;
-
   const isOpen = menu.style.display === "block";
-  menu.style.display = isOpen ? "none" : "block";
+  const isDarkMode = body.classList.contains("dark-mode");
 
-  // 背景色の切り替え（オプション）
-  body.style.backgroundColor = isOpen ? "#f2f2f2" : "#e0e0e0";
+  menu.style.display = isOpen ? "none" : "block"; // ダークモードかどうかで背景色を分岐
+
+  if (isDarkMode) {
+    body.style.backgroundColor = "#121212"; // ダークモードの背景色を維持
+  } else {
+    body.style.backgroundColor = isOpen ? "#f2f2f2" : "#e0e0e0"; // ライトモード時のみ変更
+  }
 }
 
 window.addEventListener("click", function (e) {
@@ -58,6 +84,9 @@ window.addEventListener("DOMContentLoaded", () => {
   if (switchInput) {
     switchInput.checked = isDarkMode;
   }
+
+  // 検索履歴
+  renderSearchHistory();
 });
 
 function toggleDarkMode() {
@@ -68,4 +97,10 @@ function toggleDarkMode() {
   body.classList.toggle("dark-mode", isDarkMode);
   localStorage.setItem("darkMode", isDarkMode);
   body.style.backgroundColor = isDarkMode ? "#121212" : "#f2f2f2";
+}
+
+// 検索履歴の削除
+function clearSearchHistory() {
+  localStorage.removeItem("searchHistory");
+  renderSearchHistory();
 }
