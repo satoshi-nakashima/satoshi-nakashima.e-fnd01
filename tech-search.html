@@ -5,6 +5,47 @@
     <title>eラーニング基礎最終報告</title>
     <link rel="stylesheet" href="tech-search-styles.css" />
   </head>
+
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeProfileModal()">&times;</span>
+      <h3>プロフィール</h3>
+      <img src="profile.jpg" alt="プロフィール画像" class="profile-img-modal" />
+      <p>名前/部署：中島 哲史（品質保証部）</p>
+      <p>趣味：ラジオを聴くこと（ANN、コテンラジオ）</p>
+      <p>経歴：会社生活の1/3をタイで過ごしています。</p>
+      <ul>
+        <li>2013: 入社</li>
+        <li>2016: TMT（タイ）修行派遣</li>
+        <li>2022～2024: TMA（旧TDEM）出向</li>
+      </ul>
+      <p>
+        最近はまっていること：業務支援ツールの開発<br />
+        （なんだか楽しくなってきちゃって、コード量が2,000行を超えました。）
+      </p>
+    </div>
+  </div>
+
+  <div id="studiedModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeStudiedModal()">&times;</span>
+      <h3>本コースを通じて学んだこと</h3>
+      <ul>
+        <li>コードを読むことと書くことはまったく違う</li>
+        <li>自分の前提を言葉にする難しさ</li>
+        <ul>
+          <li>（例）自分のプロフィールをぶわっと出す</li>
+          <li>”プロフィール”ボタンがクリックされる</li>
+          <li>プロフィールのモーダルを画面上に表示する</li>
+          <li>同時にプロフィールの背景が暗くなる</li>
+          <li>0.3sかけてフェードインしてくる</li>
+          <li>モーダルの中身（画像・名前・部署・経歴など）が表示される</li>
+        </ul>
+        <li>（ダークモードなんてなんでやろうと思ったんだろう）</li>
+      </ul>
+    </div>
+  </div>
+
   <body>
     <h1>Tech Search</h1>
 
@@ -17,7 +58,7 @@
 
     <div id="searchHistory" class="search-history">
       <h3>検索履歴</h3>
-      <button onclick="clearSearchHistory()">履歴を削除</button>  
+      <button onclick="clearSearchHistory()">履歴を削除</button>
       <div id="historyItems"></div>
     </div>
 
@@ -27,8 +68,10 @@
         <span class="profile-name">中島 哲史</span>
       </div>
       <div class="dropdown-menu" id="dropdownMenu">
-        <a href="#">プロフィール</a>
-        <a href="#">設定</a>
+        <a href="#" onclick="openProfileModal(); return false;">プロフィール</a>
+        <a href="#" onclick="openStudiedModal(); return false;"
+          >本コースでの学び</a
+        >
         <!-- <a href="#" onclick="toggleDarkMode(); return false;">ダークモード</a> -->
         <label class="dark-mode-toggle">
           <input
@@ -38,11 +81,10 @@
           />
           <span class="slider"></span>ダークモード
         </label>
-        <a href="index.html">ログアウト</a>
+        <a href="#" onclick="logout(); return false;">ログアウト</a>
       </div>
     </div>
-
-    <script src="tech-search-scripts.js"></script>
     <div id="overlay" class="overlay"></div>
+    <script src="tech-search-scripts.js"></script>
   </body>
 </html>

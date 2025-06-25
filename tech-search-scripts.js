@@ -92,10 +92,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // オーバーレイクリックでメニューを閉じる
   const overlay = document.getElementById("overlay");
-  if (overlay) {
+  const profileModal = document.getElementById("profileModal");
+  const dropdownMenu = document.getElementById("dropdownMenu");
+  if (overlay && profileModal) {
     overlay.addEventListener("click", () => {
-      document.getElementById("dropdownMenu").style.display = "none";
+      dropdownMenu.style.display = "none";
       overlay.style.display = "none";
+      profileModal.style.display = "none";
     });
   }
 
@@ -117,4 +120,28 @@ function toggleDarkMode() {
 function clearSearchHistory() {
   localStorage.removeItem("searchHistory");
   renderSearchHistory();
+}
+
+function openProfileModal() {
+  document.getElementById("profileModal").style.display = "block";
+}
+
+function closeProfileModal() {
+  document.getElementById("profileModal").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+function openStudiedModal() {
+  document.getElementById("studiedModal").style.display = "block";
+}
+
+function closeStudiedModal() {
+  document.getElementById("studiedModal").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+// ログアウト
+function logout() {
+  alert("ご清聴ありがとうございました。");
+  window.location.href = "index.html";
 }
